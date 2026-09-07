@@ -610,6 +610,133 @@ footer .lg img{width:28px;height:28px;border-radius:8px}
 .f3.b .fi{background:#E1F6EC;color:#128B54}
 .f3.c .fi{background:#FFEFE4;color:#C2601F}
 
+
+/* ============ 1. STICKY SCRUB (DUOL) ============ */
+.scrub{position:relative}
+.scrub-in{position:sticky;top:0;min-height:100svh;display:flex;flex-direction:column;justify-content:center;
+  padding:74px 0 90px;overflow:hidden}
+.sc-stage{background:linear-gradient(165deg,#13294A,#0A1524);border-radius:var(--r-xl);
+  padding:26px 18px 22px;color:#fff;position:relative;overflow:hidden}
+.sc-stage::before{content:"";position:absolute;width:260px;height:260px;right:-100px;top:-110px;border-radius:50%;
+  background:radial-gradient(circle,rgba(46,139,255,.4),transparent 68%)}
+.sc-lbl{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E93AB;font-weight:800}
+.sc-word{font-size:clamp(30px,10vw,58px);font-weight:900;letter-spacing:-.045em;line-height:1.02;margin-top:12px;
+  min-height:1.1em;display:flex;flex-wrap:wrap;align-items:baseline}
+.sc-word .ch{display:inline-block;transition:transform .55s var(--spring),opacity .45s var(--ease),color .45s}
+.sc-word .ch.drop{opacity:0;transform:translateY(30px) rotate(14deg);color:#FF7A6B}
+.sc-word .ch.hot{color:#FFD166;transform:translateY(-7px) scale(1.14)}
+.sc-word .ch.add{color:#4FD08D}
+.sc-note{margin-top:16px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);
+  border-radius:var(--r-md);padding:13px 15px;font-size:13.5px;color:#B4C4D4;line-height:1.5;min-height:70px}
+.sc-note b{color:#fff}
+.sc-prog{display:flex;gap:6px;margin-top:16px}
+.sc-prog i{flex:1;height:4px;border-radius:99px;background:rgba(255,255,255,.15);overflow:hidden;position:relative}
+.sc-prog i::after{content:"";position:absolute;inset:0;width:0;border-radius:99px;
+  background:linear-gradient(90deg,#3B9BFF,#0B5FE0);transition:width .3s linear}
+.sc-prog i.on::after{width:100%}
+.sc-steps{display:grid;gap:8px;margin-top:18px}
+.sc-step{display:flex;gap:11px;align-items:flex-start;padding:11px 13px;border-radius:14px;
+  background:var(--tint);transition:.45s var(--ease);opacity:.42}
+.sc-step.on{opacity:1;background:var(--blue-soft);transform:translateX(4px)}
+.sc-step .n{width:22px;height:22px;flex:0 0 auto;border-radius:50%;background:#fff;color:var(--gray2);
+  display:grid;place-items:center;font-size:11px;font-weight:800;transition:.4s}
+.sc-step.on .n{background:var(--blue2);color:#fff}
+.sc-step .t{font-size:13.5px;font-weight:600;line-height:1.35}
+.sc-step.on .t{color:var(--ink)}
+
+/* ============ 2. DRAG REVEAL (DUOL) ============ */
+.cmp{position:relative;border-radius:var(--r-xl);overflow:hidden;box-shadow:var(--sh-m);
+  touch-action:pan-y;user-select:none;-webkit-user-select:none;cursor:ew-resize}
+.cmp-pane{padding:30px 18px 34px;min-height:210px;display:flex;flex-direction:column;justify-content:center}
+.cmp-a{background:linear-gradient(160deg,#FDEFEC,#F9DDD6)}
+.cmp-b{position:absolute;inset:0;background:linear-gradient(160deg,#E7F8EF,#D3F0E1);
+  clip-path:inset(0 0 0 var(--x,50%))}
+.cmp-tag{display:inline-flex;align-items:center;gap:7px;align-self:flex-start;border-radius:999px;
+  padding:6px 13px;font-size:10.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase}
+.cmp-a .cmp-tag{background:#F5CBC0;color:#A83C22}
+.cmp-b .cmp-tag{background:#B6E7CD;color:#0C6B41}
+.cmp-de{font-size:clamp(21px,6.4vw,32px);font-weight:800;letter-spacing:-.035em;margin-top:14px;line-height:1.14}
+.cmp-a .cmp-de{color:#8E2E17}
+.cmp-b .cmp-de{color:#0B5B37}
+.cmp-ru{font-size:13.5px;margin-top:9px;line-height:1.45}
+.cmp-a .cmp-ru{color:#A8624F}
+.cmp-b .cmp-ru{color:#3D7A5D}
+.cmp-line{position:absolute;top:0;bottom:0;width:3px;background:#fff;left:var(--x,50%);
+  transform:translateX(-50%);box-shadow:0 0 0 1px rgba(14,27,43,.12);pointer-events:none;z-index:3}
+.cmp-knob{position:absolute;top:50%;left:var(--x,50%);transform:translate(-50%,-50%);z-index:4;
+  width:46px;height:46px;border-radius:50%;background:#fff;box-shadow:0 6px 20px rgba(14,27,43,.3);
+  display:grid;place-items:center;color:var(--ink);pointer-events:none}
+.cmp-knob.pulse{animation:knobp 2.2s ease-in-out infinite}
+@keyframes knobp{0%,100%{box-shadow:0 6px 20px rgba(14,27,43,.3)}50%{box-shadow:0 6px 20px rgba(14,27,43,.3),0 0 0 12px rgba(46,139,255,.13)}}
+.cmp-hint{position:absolute;left:0;right:0;bottom:11px;text-align:center;font-size:11px;font-weight:700;
+  letter-spacing:.08em;text-transform:uppercase;color:rgba(14,27,43,.42);z-index:5;pointer-events:none;
+  transition:opacity .4s}
+.cmp-nav{display:flex;gap:7px;margin-top:12px;overflow-x:auto;scrollbar-width:none;padding-bottom:3px}
+.cmp-nav::-webkit-scrollbar{display:none}
+.cmp-nav button{flex:0 0 auto;background:var(--white);border:1px solid var(--line);border-radius:999px;
+  padding:9px 15px;font-size:13px;font-weight:700;color:var(--gray);cursor:pointer;transition:.3s var(--ease);
+  -webkit-tap-highlight-color:transparent}
+.cmp-nav button.on{background:var(--ink);border-color:transparent;color:#fff}
+
+/* ============ 3. СЕГМЕНТНЫЕ БАРЫ (DUOL) ============ */
+.sg{display:grid;gap:15px;margin-top:16px}
+.sg-l{display:flex;justify-content:space-between;align-items:baseline;font-size:13px;margin-bottom:8px}
+.sg-l b{font-weight:700}
+.sg-l span{color:var(--gray2);font-size:11.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase}
+.sg-t{display:flex;gap:3px}
+.sg-t i{flex:1;height:16px;border-radius:3px;background:var(--tint2);
+  transform:scaleY(.55);opacity:.7;transition:transform .4s var(--spring),background .3s,opacity .3s}
+.sg-t i.on{transform:scaleY(1);opacity:1}
+.sg-t i.on.c1{background:linear-gradient(180deg,#7FB6FF,#4A9BFF)}
+.sg-t i.on.c2{background:linear-gradient(180deg,#3B9BFF,#0B5FE0)}
+.sg-t i.on.c3{background:linear-gradient(180deg,#0B5FE0,#0847AE)}
+
+/* ============ 4. ОГРОМНАЯ БЕГУЩАЯ СТРОКА (PLEY) ============ */
+.mqx{overflow:hidden;padding:6px 0;
+  mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}
+.mqx-t{display:flex;align-items:center;gap:22px;width:max-content;animation:mqm 24s linear infinite}
+.mqx-t.r{animation-direction:reverse;animation-duration:30s}
+.mqx-i{font-size:clamp(34px,10vw,78px);font-weight:900;letter-spacing:-.045em;white-space:nowrap;line-height:1.12;
+  color:transparent;-webkit-text-stroke:1.5px #C3D0DC}
+.mqx-i.f{color:var(--ink);-webkit-text-stroke:0}
+.mqx-i.b{color:var(--blue2);-webkit-text-stroke:0}
+.mqx-d{width:11px;height:11px;border-radius:50%;background:var(--blue);flex:0 0 auto}
+
+/* ============ 5. СТИКЕР-БЕЙДЖИ (PLEY) ============ */
+.stk{display:inline-block;padding:2px 13px 4px;border-radius:10px;font-weight:900;letter-spacing:-.03em;
+  box-shadow:3px 3px 0 rgba(14,27,43,.9);transform:rotate(-2.6deg);transition:.5s var(--spring)}
+.stk.y{background:#FFD84D;color:#0E1B2B}
+.stk.g{background:#4FD08D;color:#0E1B2B}
+.stk.b{background:#3B9BFF;color:#fff}
+.stk.pop{animation:stkp .55s var(--spring)}
+@keyframes stkp{0%{transform:rotate(9deg) scale(.4);opacity:0}60%{transform:rotate(-4deg) scale(1.08)}100%{transform:rotate(-2.6deg) scale(1);opacity:1}}
+
+/* ============ 6. ПОСЛОВНОЕ ПОЯВЛЕНИЕ (Lemonade) ============ */
+.wr .w{display:inline-block;opacity:0;transform:translateY(20px);
+  transition:opacity .5s var(--ease),transform .6s var(--spring)}
+.wr.in .w{opacity:1;transform:none}
+
+/* ============ 7. ЗВЁЗДЫ (Lemonade) ============ */
+.stars{display:flex;gap:6px;justify-content:center;margin-top:4px}
+.stars svg{width:30px;height:30px;color:#DCE3EA;transform:scale(.6);opacity:.5;
+  transition:color .35s,transform .5s var(--spring),opacity .35s}
+.stars svg.on{color:#FFC53D;transform:scale(1);opacity:1}
+.rate{text-align:center}
+.rate .num{font-size:44px;font-weight:900;letter-spacing:-.05em;line-height:1;margin-top:10px}
+.rate .cap{font-size:12.5px;color:var(--gray2);margin-top:7px}
+
+/* ============ 8. КОЛЛАЖ (PLEY) ============ */
+.col{display:grid;gap:11px}
+.col-i{transition:transform 1s var(--spring),opacity .7s var(--ease);opacity:0}
+.col-i.in{opacity:1;transform:none!important}
+
+/* ============ 9. САМООТРИСОВКА ЛИНИЙ ============ */
+.draw path,.draw line,.draw circle,.draw rect{
+  stroke-dasharray:var(--l,600);stroke-dashoffset:var(--l,600);
+  transition:stroke-dashoffset 1.4s var(--ease)}
+.draw.in path,.draw.in line,.draw.in circle,.draw.in rect{stroke-dashoffset:0}
+
 /* ---------- responsive ---------- */
 @media (min-width:640px){
   :root{--pad:24px}
@@ -671,6 +798,10 @@ footer .lg img{width:28px;height:28px;border-radius:8px}
   </div>
 
   <h1 class="h1"><span class="soft">Повелительное наклонение</span><br>Imperativ. Как<br>приказывать, просить<br>и не звучать грубо</h1>
+
+  <div style="margin-top:14px;font-size:clamp(17px,4.8vw,24px);font-weight:800;letter-spacing:-.03em">
+    Вы говорите <span class="stk y" id="stk">другу</span>
+  </div>
 
   <div class="hero-note">
     <b>Одна буква решает всё.</b><br>
@@ -823,8 +954,27 @@ footer .lg img{width:28px;height:28px;border-radius:8px}
     Возьмите обычное «ты делаешь» и отрежьте окончание. Нажмите на глагол.</p>
   </div>
 
-  <div class="builder" id="bd">
-    <div class="bd-verbs" id="bdVerbs"></div>
+  <div class="scrub" id="scrub">
+    <div class="scrub-in">
+      <div class="sc-stage">
+        <div class="sc-lbl" id="scLbl">Шаг 1 из 4 · инфинитив</div>
+        <div class="sc-word" id="scWord"></div>
+        <div class="sc-note" id="scNote"></div>
+        <div class="sc-prog" id="scProg"><i></i><i></i><i></i><i></i></div>
+      </div>
+      <div class="sc-steps" id="scSteps">
+        <div class="sc-step"><span class="n">1</span><span class="t">Берём инфинитив: <b>nehmen</b></span></div>
+        <div class="sc-step"><span class="n">2</span><span class="t">Ставим в форму «ты». Гласная меняется: <b>nimmst</b></span></div>
+        <div class="sc-step"><span class="n">3</span><span class="t">Отрезаем окончание <b>−st</b></span></div>
+        <div class="sc-step"><span class="n">4</span><span class="t">Готово. Это приказ: <b>Nimm!</b></span></div>
+      </div>
+      <p class="small center" style="margin-top:14px">Листайте страницу. Слово соберётся само</p>
+    </div>
+  </div>
+
+  <div class="builder mt" id="bd" style="margin-top:16px">
+    <div class="sc-lbl" style="color:#7E93AB">А теперь сами. Выберите глагол</div>
+    <div class="bd-verbs" id="bdVerbs" style="margin-top:14px"></div>
     <div class="steps">
       <div class="step" data-s="1">
         <span class="sn">1</span>
@@ -1104,6 +1254,49 @@ footer .lg img{width:28px;height:28px;border-radius:8px}
 </section>
 </div>
 
+<!-- ======================= СРАВНЕНИЕ ======================= -->
+<div class="wrap">
+<section class="shell" id="sravnenie">
+  <div class="shead">
+    <span class="chip">Ошибка и норма</span>
+    <h2 class="h2 wr"><span class="soft">Потяните</span><br>за кружок</h2>
+    <p class="lead">Слева то, как говорят почти все, кто учил немецкий по таблицам. Справа то, как говорит немец.</p>
+  </div>
+
+  <div class="cmp" id="cmp" style="--x:52%">
+    <div class="cmp-pane cmp-a">
+      <span class="cmp-tag">так говорят</span>
+      <div class="cmp-de" id="cmpAde">Du nehm das!</div>
+      <div class="cmp-ru" id="cmpAru">Местоимение осталось, гласная не поменялась</div>
+    </div>
+    <div class="cmp-pane cmp-b" id="cmpB">
+      <span class="cmp-tag">так надо</span>
+      <div class="cmp-de" id="cmpBde">Nimm das!</div>
+      <div class="cmp-ru" id="cmpBru">Возьми это. Du убрали, e стало i</div>
+    </div>
+    <div class="cmp-line"></div>
+    <div class="cmp-knob pulse" id="cmpKnob">
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6 4 12l5 6M15 6l5 6-5 6"/></svg>
+    </div>
+    <div class="cmp-hint" id="cmpHint">тяните влево и вправо</div>
+  </div>
+
+  <div class="cmp-nav" id="cmpNav">
+    <button class="on" data-c="0">nehmen</button>
+    <button data-c="1">aufmachen</button>
+    <button data-c="2">schlafen</button>
+    <button data-c="3">arbeiten</button>
+    <button data-c="4">sein</button>
+    <button data-c="5">на «Вы»</button>
+  </div>
+</section>
+</div>
+
+<div class="wrap">
+  <div class="mqx" style="margin:6px 0 2px"><div class="mqx-t" id="mqxA"></div></div>
+  <div class="mqx" style="margin:0 0 8px"><div class="mqx-t r" id="mqxB"></div></div>
+</div>
+
 <!-- ======================= ТРЕНАЖЁР ======================= -->
 <div class="wrap">
 <section class="shell sec" id="trener">
@@ -1274,12 +1467,12 @@ footer .lg img{width:28px;height:28px;border-radius:8px}
       <div class="card line">
         <div class="h4">Что мешает на самом деле</div>
         <p class="small" style="margin-top:5px">Причины по частоте упоминаний в комментариях под нашими постами</p>
-        <div class="bars mt" id="bars1" style="margin-top:16px">
-          <div><div class="bar-l"><b>Не с кем говорить</b><span>чаще всего</span></div><div class="bar-t"><i class="b3" data-w="100"></i></div></div>
-          <div><div class="bar-l"><b>Нет времени и сил после работы</b><span>очень часто</span></div><div class="bar-t"><i class="b2" data-w="88"></i></div></div>
-          <div><div class="bar-l"><b>Страх сказать неправильно</b><span>часто</span></div><div class="bar-t"><i class="b2" data-w="74"></i></div></div>
-          <div><div class="bar-l"><b>Курсы слишком быстрые</b><span>часто</span></div><div class="bar-t"><i class="b1" data-w="58"></i></div></div>
-          <div><div class="bar-l"><b>Нет плана, непонятно с чего начать</b><span>регулярно</span></div><div class="bar-t"><i class="b1" data-w="46"></i></div></div>
+        <div class="sg" id="bars1" style="margin-top:16px">
+          <div><div class="sg-l"><b>Не с кем говорить</b><span>чаще всего</span></div><div class="sg-t" data-seg="16" data-on="16" data-c="c3"></div></div>
+          <div><div class="sg-l"><b>Нет времени и сил после работы</b><span>очень часто</span></div><div class="sg-t" data-seg="16" data-on="14" data-c="c2"></div></div>
+          <div><div class="sg-l"><b>Страх сказать неправильно</b><span>часто</span></div><div class="sg-t" data-seg="16" data-on="12" data-c="c2"></div></div>
+          <div><div class="sg-l"><b>Курсы слишком быстрые</b><span>часто</span></div><div class="sg-t" data-seg="16" data-on="9" data-c="c1"></div></div>
+          <div><div class="sg-l"><b>Нет плана, непонятно с чего начать</b><span>регулярно</span></div><div class="sg-t" data-seg="16" data-on="7" data-c="c1"></div></div>
         </div>
         <p class="small mt" style="margin-top:14px">Обратите внимание: слова «лень» в этом списке нет. Его называют только те, кто смотрит со стороны.</p>
       </div>
@@ -1622,6 +1815,12 @@ footer .lg img{width:28px;height:28px;border-radius:8px}
     <span class="chip">Живые сообщения</span>
     <h2 class="h2"><span class="soft">Не «звёздочки на сайте».</span><br>Скриншоты из личных</h2>
     <p class="lead">Мы не переписывали и не приглаживали. Как прислали, так и выложили.</p>
+  </div>
+
+  <div class="rate" id="rate">
+    <div class="stars" id="stars"></div>
+    <div class="num"><span data-count="100">0</span>+</div>
+    <div class="cap">студентов прошли наши гайды и разговорные клубы</div>
   </div>
 
   <div class="revs" id="revs">
@@ -2277,6 +2476,241 @@ $$('[data-scroll]').forEach(function(b){
       knob.style.left=d.p; de.textContent=d.de; ru.textContent=d.ru; hint.textContent=d.h;
     });
   });
+})();
+
+
+/* ---------------- 19. Sticky scrub: слово собирается по скроллу ---------------- */
+(function(){
+  var host=$('#scrub'); if(!host) return;
+  var word=$('#scWord'), note=$('#scNote'), lbl=$('#scLbl');
+  var prog=$$('#scProg i'), steps=$$('#scSteps .sc-step');
+  var ST=[
+    {t:'nehmen', lbl:'Шаг 1 из 4 · инфинитив',
+     n:'<b>nehmen</b> значит «брать». Пока это просто словарная форма. Приказать ей нельзя.'},
+    {t:'du nimmst', hot:[4], lbl:'Шаг 2 из 4 · форма «ты»',
+     n:'Ставим в форму «ты». Смотрите на середину слова: <b>e</b> превратилось в <b>i</b>. Это сильный глагол.'},
+    {t:'du nimmst', drop:[0,1,2,7,8], lbl:'Шаг 3 из 4 · режем',
+     n:'Убираем местоимение <b>du</b> и окончание <b>−st</b>. Красное отваливается.'},
+    {t:'Nimm!', lbl:'Шаг 4 из 4 · готово',
+     n:'<b>Nimm das!</b> — возьми это. Гласная осталась изменённой, потому что мы шли через форму «ты», а не через инфинитив.'}
+  ];
+  var cur=-1;
+  var render=function(k){
+    if(k===cur) return; cur=k;
+    var st=ST[k];
+    word.innerHTML='';
+    st.t.split('').forEach(function(c,idx){
+      var sp=document.createElement('span');
+      sp.className='ch'; sp.textContent = c===' ' ? ' ' : c;
+      if(st.hot && st.hot.indexOf(idx)>-1) sp.classList.add('hot');
+      if(st.drop && st.drop.indexOf(idx)>-1) sp.classList.add('drop');
+      word.appendChild(sp);
+    });
+    note.innerHTML=st.n; lbl.textContent=st.lbl;
+    prog.forEach(function(p,i){p.classList.toggle('on', i<=k)});
+    steps.forEach(function(sp,i){sp.classList.toggle('on', i===k)});
+  };
+  var tick=function(){
+    var r=host.getBoundingClientRect();
+    var span=r.height-innerHeight;
+    if(span<=0){ render(ST.length-1); return; }
+    var p=Math.min(1,Math.max(0,(-r.top)/span));
+    render(Math.min(ST.length-1, Math.floor(p*ST.length*0.999)));
+  };
+  addEventListener('scroll',tick,{passive:true}); addEventListener('resize',tick);
+  var sz=function(){ host.style.height = (innerHeight*2.6)+'px'; tick(); };
+  sz(); addEventListener('resize',sz);
+  render(0);
+})();
+
+/* ---------------- 20. Drag-reveal: ошибка против нормы ---------------- */
+(function(){
+  var box=$('#cmp'); if(!box) return;
+  var knob=$('#cmpKnob'), hint=$('#cmpHint'), nav=$('#cmpNav');
+  var Ade=$('#cmpAde'), Aru=$('#cmpAru'), Bde=$('#cmpBde'), Bru=$('#cmpBru');
+  var C=[
+    {ad:'Du nehm das!', ar:'Местоимение осталось, гласная не поменялась',
+     bd:'Nimm das!',    br:'Возьми это. Du убрали, e стало i'},
+    {ad:'Aufmach die Tür!', ar:'Приставка прилипла к глаголу спереди',
+     bd:'Mach die Tür auf!', br:'Открой дверь. Приставка уехала в конец'},
+    {ad:'Schläf gut!', ar:'Умлаут из формы «ты» протащили в приказ',
+     bd:'Schlaf gut!',  br:'Спи хорошо. В императиве умлаут исчезает'},
+    {ad:'Arbeit schneller!', ar:'Без −e слово невозможно выговорить',
+     bd:'Arbeite schneller!', br:'Работай быстрее. Основа на −t берёт −e'},
+    {ad:'Bist nicht böse!', ar:'Взяли форму «ты» от sein. Так нельзя',
+     bd:'Sei nicht böse!', br:'Не злись. У sein собственная форма'},
+    {ad:'Kommen bitte!', ar:'Забыли Sie. Фраза повисает в воздухе',
+     bd:'Kommen Sie bitte!', br:'Придите, пожалуйста. На «Вы» Sie обязательно'}
+  ];
+  var set=function(x){
+    x=Math.min(94,Math.max(6,x));
+    box.style.setProperty('--x', x+'%');
+  };
+  var frac=function(clientX){
+    var r=box.getBoundingClientRect();
+    return ((clientX-r.left)/r.width)*100;
+  };
+  var active=false, touched=false;
+  var start=function(){ active=true; if(!touched){touched=true; knob.classList.remove('pulse'); hint.style.opacity=0;} };
+  var move=function(e){
+    if(!active) return;
+    var cx = e.touches ? e.touches[0].clientX : e.clientX;
+    set(frac(cx));
+    if(e.cancelable) e.preventDefault();
+  };
+  var end=function(){ active=false; };
+  box.addEventListener('pointerdown', function(e){ start(); set(frac(e.clientX)); box.setPointerCapture(e.pointerId); });
+  box.addEventListener('pointermove', move);
+  box.addEventListener('pointerup', end);
+  box.addEventListener('pointercancel', end);
+  $$('button', nav).forEach(function(b){
+    b.addEventListener('click', function(){
+      var c=C[+b.dataset.c];
+      $$('button', nav).forEach(function(x){x.classList.toggle('on', x===b)});
+      Ade.textContent=c.ad; Aru.textContent=c.ar; Bde.textContent=c.bd; Bru.textContent=c.br;
+      if(RM){ set(52); return; }
+      var from=52, to=[30,74][Math.random()<0.5?0:1], t0=null;
+      var step=function(t){ if(!t0)t0=t; var k=Math.min(1,(t-t0)/700);
+        set(from+(to-from)*(1-Math.pow(1-k,3))); if(k<1) requestAnimationFrame(step); };
+      set(from); requestAnimationFrame(step);
+    });
+  });
+})();
+
+/* ---------------- 21. Сегментные бары ---------------- */
+(function(){
+  var host=$('#bars1'); if(!host) return;
+  $$('.sg-t', host).forEach(function(t){
+    var n=+t.dataset.seg;
+    for(var i=0;i<n;i++){ var b=document.createElement('i'); b.className=t.dataset.c; t.appendChild(b); }
+  });
+  var fired=false;
+  var run=function(){
+    if(fired) return;
+    var r=host.getBoundingClientRect();
+    if(r.top>innerHeight*0.9 || r.bottom<0) return;
+    fired=true;
+    $$('.sg-t', host).forEach(function(t,row){
+      var on=+t.dataset.on;
+      $$('i',t).forEach(function(b,i){
+        if(i<on) setTimeout(function(){ b.classList.add('on'); }, RM?0:row*160+i*45);
+      });
+    });
+    removeEventListener('scroll', run);
+  };
+  addEventListener('scroll', run, {passive:true}); run();
+})();
+
+/* ---------------- 22. Огромная бегущая строка ---------------- */
+(function(){
+  var A=$('#mqxA'), B=$('#mqxB'); if(!A) return;
+  var top=['Komm!','Nimm!','Hör zu!','Sei ruhig!','Mach auf!','Schlaf!'];
+  var bot=['Arbeite!','Gib!','Lächle!','Kommen Sie!','Biegt ab!','Iss!'];
+  var build=function(host, arr, cls){
+    var html='';
+    for(var pass=0; pass<2; pass++){
+      arr.forEach(function(w,i){
+        html += '<span class="mqx-i '+((i%3===0)?cls:'')+'">'+w+'</span><span class="mqx-d"></span>';
+      });
+    }
+    host.innerHTML=html;
+  };
+  build(A, top, 'f'); build(B, bot, 'b');
+})();
+
+/* ---------------- 23. Пословное появление заголовков ---------------- */
+(function(){
+  var hs=$$('.h2, .h1');
+  hs.forEach(function(h){
+    if(h.querySelector('.stk')) return;
+    var kids=Array.prototype.slice.call(h.childNodes);
+    kids.forEach(function(n){
+      if(n.nodeType!==3 || !n.textContent.trim()) return;
+      var frag=document.createDocumentFragment();
+      n.textContent.split(/(\s+)/).forEach(function(tok){
+        if(!tok.trim()){ frag.appendChild(document.createTextNode(tok)); return; }
+        var sp=document.createElement('span'); sp.className='w'; sp.textContent=tok;
+        frag.appendChild(sp);
+      });
+      n.parentNode.replaceChild(frag, n);
+    });
+    $$('.soft', h).forEach(function(sf){
+      var t=sf.textContent; sf.innerHTML='';
+      t.split(/(\s+)/).forEach(function(tok){
+        if(!tok.trim()){ sf.appendChild(document.createTextNode(tok)); return; }
+        var sp=document.createElement('span'); sp.className='w'; sp.textContent=tok; sf.appendChild(sp);
+      });
+    });
+    h.classList.add('wr');
+    $$('.w', h).forEach(function(w,i){ w.style.transitionDelay=(i*0.055)+'s'; });
+  });
+  if(!('IntersectionObserver' in window)){ hs.forEach(function(h){h.classList.add('in')}); return; }
+  var io=new IntersectionObserver(function(en){
+    en.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  },{threshold:.2});
+  hs.forEach(function(h){io.observe(h)});
+})();
+
+/* ---------------- 24. Звёзды ---------------- */
+(function(){
+  var host=$('#stars'); if(!host) return;
+  var svg='<svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14l-5-4.87 6.91-1.01z"/></svg>';
+  host.innerHTML = svg+svg+svg+svg+svg;
+  var st=$$('svg', host), fired=false;
+  var run=function(){
+    if(fired) return;
+    var r=host.getBoundingClientRect();
+    if(r.top>innerHeight*0.92 || r.bottom<0) return;
+    fired=true;
+    st.forEach(function(s,i){ setTimeout(function(){ s.classList.add('on'); }, RM?0:i*130); });
+    removeEventListener('scroll', run);
+  };
+  addEventListener('scroll', run, {passive:true}); run();
+})();
+
+/* ---------------- 25. Стикер в hero ---------------- */
+(function(){
+  var el=$('#stk'); if(!el||RM) return;
+  var D=[{t:'другу',cls:'stk y'},{t:'группе',cls:'stk g'},{t:'врачу',cls:'stk b'}];
+  var i=0;
+  setInterval(function(){
+    i=(i+1)%D.length;
+    el.className=D[i].cls; el.textContent=D[i].t;
+    el.classList.remove('pop'); void el.offsetWidth; el.classList.add('pop');
+  }, 2400);
+})();
+
+/* ---------------- 26. Коллаж скриншотов ---------------- */
+(function(){
+  var items=$$('#vnutri .shot, #situacii .shot'); if(!items.length) return;
+  items.forEach(function(el,i){
+    el.classList.add('col-i');
+    var dir = i%2 ? 1 : -1;
+    el.style.transform = 'translateY(46px) rotate('+(dir*2.6)+'deg) scale(.93)';
+    el.style.transitionDelay = (i%3*0.09)+'s';
+  });
+  if(!('IntersectionObserver' in window)){ items.forEach(function(e){e.classList.add('in')}); return; }
+  var io=new IntersectionObserver(function(en){
+    en.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  },{threshold:.12});
+  items.forEach(function(e){io.observe(e)});
+})();
+
+/* ---------------- 27. Самоотрисовка SVG ---------------- */
+(function(){
+  var svgs=$$('.off svg'); if(!svgs.length) return;
+  svgs.forEach(function(sv){
+    sv.classList.add('draw');
+    $$('path,rect,circle,line', sv).forEach(function(el){
+      try{ var L=el.getTotalLength ? el.getTotalLength() : 400; el.style.setProperty('--l', Math.ceil(L)); }
+      catch(e){ el.style.setProperty('--l', 400); }
+    });
+  });
+  if(!('IntersectionObserver' in window)){ svgs.forEach(function(e){e.classList.add('in')}); return; }
+  var io=new IntersectionObserver(function(en){
+    en.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  },{threshold:.3});
+  svgs.forEach(function(e){io.observe(e)});
 })();
 
 })();
